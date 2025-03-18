@@ -13,7 +13,7 @@ class IAGenerator:
         self.HistoriqueConv = [
                                 {"role": "system", "content": roleDesc}
                               ]
-        self.API_KEY = open("secret",'r',encoding="utf-8").read()
+        self.API_KEY = open(".env",'r',encoding="utf-8").read()
         self.client = openai.OpenAI(api_key=self.API_KEY)
         self.oldFileName = ""
         self.newFileName = ""

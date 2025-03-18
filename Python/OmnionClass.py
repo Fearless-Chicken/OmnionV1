@@ -13,10 +13,11 @@ class Omnion:
         self.HistoriqueConv = [
                                 {"role": "system", "content": roleDesc}
                               ]
-        self.API_KEY = open("secret",'r',encoding="utf-8").read()
+        self.API_KEY = open(".env",'r',encoding="utf-8").read()
         self.client = openai.OpenAI(api_key=self.API_KEY)
         self.oldFileName = ""
         self.newFileName = ""
+        self.debug = False
 
     def incrementAge(self):
         while True:
@@ -62,8 +63,10 @@ class Omnion:
         return NPCResponse
 
     def talkTo(self):
+        os.system("cls")
+        print(self.chat_with_ai("bvn"))
         while True:
-            user_message = input("Toi : ")
+            user_message = input("> ")
             
             # Vérifie si l'utilisateur veut quitter
             if user_message.lower() in ["quit", "exit", "stop"]:
@@ -83,12 +86,14 @@ class Omnion:
                 elapsed_time = end_time - start_time
                 try:
                     jsonIA = json.loads(response)
+                    if self.debug:print("loaded")
                 except json.decoder.JSONDecodeError:
                     jsonIA = response
-                input(jsonIA)
+                    if self.debug:print("not loaded")
+                # input(jsonIA)
                 match jsonIA["func"]:
                     case "NormalTalk":
-                        print(f"{self.name} : {jsonIA['content']}")
+                        print(f"\n{self.name} : {jsonIA['content']}\n")
 
 
                     case "CreateFile":
@@ -98,7 +103,7 @@ class Omnion:
                     case "executeCode":
                         # input(jsonIA["content"])
                         result = OmnionUtils.execCode(jsonIA["content"])
-                        reponse = self.chat_with_ai("la réponse est : "+result+"\npense à ajuster le 'func' cette réponse pour fournir le résultat attendu")
+                        reponse = self.chat_with_ai("la réponse est : "+result+"\nrédige moi une réponse pertinente")
                         print(reponse)
 
                     case other:
@@ -109,8 +114,9 @@ class Omnion:
                 tokenU = Utils.CalcToken(user_message)
 
                 self.totalToken += tokenU + tokenAI
-                print(f"Temps de réponse : {elapsed_time}")
-                print(f"Tokens utilisés : {tokenAI} + {tokenU} = {tokenAI+tokenU} | pour un total de : {self.totalToken}")
+                if self.debug:
+                    print(f"Temps de réponse : {elapsed_time}")
+                    print(f"Tokens utilisés : {tokenAI} + {tokenU} = {tokenAI+tokenU} | pour un total de : {self.totalToken}")
 
 
     def createFile(self,jsonIA):
