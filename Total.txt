@@ -1,0 +1,511 @@
+path : Project\hello_world.pyfor i in range(10):
+    print('Hello World')path : Project\launcher.bat@echo off
+C:/Users/Octo4/AppData/Local/Microsoft/WindowsApps/python3.10.exe OmnionV1.py
+pause
+path : Project\OmnionV1.pyimport threading, time, pick, os, Python.PNJclass as PNJclass, Python.Utils as Utils, ast, traceback
+
+global tempsEcoulé
+tempsEcoulé = 0
+lock = threading.Lock()  
+
+def goOn():
+    global tempsEcoulé
+    while True:
+        with lock:  
+            tempsEcoulé += 1
+        time.sleep(1)
+
+if __name__ == '__main__':
+    try:
+        PNJsClasses = ast.literal_eval(open("data/roles/roleslist.dat","r",encoding="utf-8").read())
+        menu = ["Creer un PNJ","Menu PNJ","Reload Omnion","Créer une erreur"]
+        while True:
+            PNJs = {}
+            PNJsList = []
+            for pnj in PNJs.keys():
+                PNJsList.append(pnj)
+            choice,_=pick.pick(menu,title="Faites un choix",indicator=">")
+            match choice:
+                case "Creer un PNJ":
+                    nom = str(input("Comment s'appel t il ? :> "))
+                    role,_ = pick.pick(PNJsClasses,f"Quel est le role de {nom}",indicator=">")
+                    PNJs = Utils.CreatePNJ(PNJs,nom,role)
+                case "Menu PNJ":
+                    if PNJsList != []:
+                        PNJname,_=pick.pick("Faites un choix",PNJsList+["Retour"],indicator=">")
+                        if PNJname != "Retour":
+                            choix,_=pick.pick(["Lui parler","Le supprimer","Retour"],f"Que voulez vous faire avec {PNJname}",indicator=">")
+                            match choix:
+                                case "Lui parler":
+                                    PNJs[PNJname].talkTo()
+                                case "Le supprimer":
+                                    PNJs.pop(PNJname)
+                    else:input("Aucun PNJ !")
+                case "Reload Omnion":
+                    Utils.reload()
+            
+                case "Créer une erreur":
+                    print(0/0)
+            
+            # PNJs = Utils.CreatePNJ(PNJs,"Omnion","generator")
+            # time.sleep(10)
+            # PNJs = Utils.CreatePNJ(PNJs,"Samantha")
+            
+            # temps = threading.Thread(target=goOn, daemon=True)
+            # temps.start()
+
+            # PNJs["Omnion"].talkTo()
+    except Exception as e:
+        while True:
+            choix,_ = pick.pick(["Tentative de reload","Voir l'erreur","Quitter"],"Erreure detectée...",indicator=">")
+            match choix:
+                case "Tentative de reload":
+                    Utils.reload()
+                case "Quitter":
+                    Utils.clear()
+                    exit()
+                case "Voir l'erreur":
+                    Utils.clear()
+                    traceback.print_exc()
+                    input("Appuyez sur une entrer pour continuer ...")
+                    passpath : Project\readme.txtpour les roles tu peux aller dans data/roles pour le détails des prompts originauxpath : Project\secretsk-proj-3MNdbohmvnRziHTUyG6FCQ0XMlj--UbpS-ss9YZOopHqE-hVj6dDaCqtB3YgbqNQzYKgzNkCJPT3BlbkFJORcWLYeVejNNdFYbcy3H3zdAnp1LQNPHWpJALzm6-9WuVQyJYhCvORExu13mRbnCliDNUzB90Apath : Project\test.pyimport os
+
+
+def GetEveryFilesContent():
+    with open("Total.txt","w",encoding="utf-8") as dest:
+        res = ""
+        root_dir = os.getcwd()  # Répertoire courant
+        for root, _, files in os.walk(root_dir):
+            for file in files:
+                relative_path = os.path.relpath(os.path.join(root, file), root_dir)
+                if "pycache" not in relative_path:
+                    res += "path : Project\\"+relative_path
+                    res += open(relative_path,"r",encoding="utf-8").read()
+        dest.write(res)
+        
+GetEveryFilesContent()path : Project\todo.todopath : Project\Total.txtpath : Project\annexe\ageParVitesse.dat        1 = 0 a, 0 M, 00 J, 00 h, 00 m, 01 s / tick
+       10 = 0 a, 0 M, 00 J, 00 h, 00 m, 10 s / tick
+       25 = 0 a, 0 M, 00 J, 00 h, 00 m, 25 s / tick
+       50 = 0 a, 0 M, 00 J, 00 h, 00 m, 50 s / tick
+      100 = 0 a, 0 M, 00 J, 00 h, 01 m, 40 s / tick
+      500 = 0 a, 0 M, 00 J, 00 h, 08 m, 20 s / tick
+     1000 = 0 a, 0 M, 00 J, 00 h, 16 m, 40 s / tick
+     5000 = 0 a, 0 M, 00 J, 01 h, 23 m, 20 s / tick
+    10000 = 0 a, 0 M, 00 J, 02 h, 46 m, 40 s / tick
+    50000 = 0 a, 0 M, 00 J, 13 h, 53 m, 20 s / tick
+   100000 = 0 a, 0 M, 10 J, 03 h, 46 m, 40 s / tick
+   500000 = 0 a, 0 M, 50 J, 18 h, 53 m, 20 s / tick
+  1000000 = 0 a, 0 M, 11 J, 13 h, 46 m, 40 s / tick
+  5000000 = 0 a, 1 M, 27 J, 20 h, 53 m, 20 s / tick
+ 10000000 = 0 a, 3 M, 25 J, 17 h, 46 m, 40 s / tick
+100000000 = 3 a, 2 M, 02 J, 09 h, 46 m, 40 s / tickpath : Project\annexe\ALLnature.csvBerserker;3;-2;1;0;1;1;-1;0;1;-2;3;1;2;1;2;1;1;1;0;2;1;2;1;1;1
+Prudent;1;3;0;2;1;1;1;2;-1;3;1;-1;3;2;2;1;3;2;2;1;1;3;2;2;3
+Leader;2;-1;3;2;2;2;2;-1;1;1;3;0;2;1;2;2;2;3;3;1;1;2;3;3;2
+Suiveur;1;2;1;3;1;2;2;1;0;1;1;-1;2;2;2;1;2;1;3;2;2;2;1;2;2
+Explorateur;1;-2;2;0;3;3;1;-1;0;1;2;-1;1;2;0;1;3;1;1;1;1;3;1;1;2
+Sociable;1;1;1;2;1;3;3;-1;1;1;1;-1;2;1;1;2;2;2;3;3;1;2;2;2;2
+LoupSolitaire ;2;-1;3;-2;2;0;-2;3;-1;2;3;1;-2;1;-1;3;1;-2;0;-1;3;1;2;3;1
+Provocateur;3;-2;2;-1;1;1;1;2;-2;3;1;2;-1;2;-1;2;1;1;0;1;1;2;2;1;1
+Calculateur;1;2;3;2;2;1;1;3;1;1;3;-1;2;1;3;3;2;2;1;2;1;3;3;3;3
+Protecteur;2;1;1;3;1;1;1;1;3;-1;2;-1;3;3;1;3;1;3;3;3;2;2;3;3;3
+Téméraire;3;-2;3;-2;2;2;1;-1;-2;3;1;3;-2;1;-2;1;1;0;0;1;3;2;3;2;1
+Pacifiste;0;3;-1;2;1;2;2;1;3;-3;3;-2;3;3;3;3;2;3;3;3;1;2;3;3;3path : Project\annexe\nature.txtBerserker
+Prudent
+Leader
+Suiveur
+Explorateur
+Sociable
+Loup Solitaire
+Provocateur
+Calculateur
+Protecteur
+Téméraire
+Pacifiste
+
+path : Project\annexe\newnature.csv##nom; 1; 1; 1; 1; 1; 1; 1; 1; 1; 1; 1; 1; 1; 1; 1; 1; 1; 1; 1; 1; 1; 1; 1; 1; 1
+path : Project\data\roles\generator.dat"""le modèle de réponse est le suivant, ne me rend rien d'autre que ça 
+{
+    "filename":"name",
+    "content":"code",
+    "exec":"True" si je te le demande sinon "False"
+}   
+ton prompt de test : rédige moi le code pour print hello world 10 fois"""path : Project\data\roles\marchant.dat"""Tu es un marchand dans un MMORPG se déroulant dans la rome antique et où les dieux sont présents, 
+prend le role de marchant à coeur mais n'en fait pas trop quand même. Tes réponses doivent être 
+courte, il faut juste que ai l'air assez vivant."""path : Project\data\roles\roleslist.dat["generator","marchand"]path : Project\Python\ADDNATURETODB.pyimport pymysql
+
+con = pymysql.connect(host="127.0.0.1", user="admin", password="admin", port=3306)
+cur = con.cursor()
+cur.execute("use omnionv1")
+with open("nature.csv", 'r', encoding='utf-8') as src:
+    for line in src:
+        if "##" not in line:
+            line = line.strip()  # Évite les espaces et \n
+            values = line.split(";")  # Découpe la ligne CSV
+
+            # Vérifie que la ligne contient bien toutes les colonnes
+            if len(values) != 26:  
+                print(f"Erreur : Ligne invalide -> {line}")
+                continue
+            
+            # Requête SQL avec des placeholders (%s)
+            query = '''
+            INSERT INTO `npcnatures` 
+            (`Nature`, `Agressivité`, `Fuite`, `Prise_d_initiative`, `Obéissance`, `Exploration`, 
+            `Interaction_sociale`, `Méfiance`, `Altruisme`, `Provocation`, `Réflexion`, `Précipitation`, 
+            `Attachement`, `Prise_de_risque`, `Évitement`, `Patience`, `Adaptabilité`, `Curiosité`, 
+            `Loyauté`, `Coopération`, `Individualisme`, `Autonomie`, `Réactivité`, `Persévérance`, `Optimisation_ressources`, `Empathie`) 
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+            '''
+
+            try:
+                cur.execute(query, values)
+                con.commit()
+            except pymysql.Error as e:
+                print(f"Erreur SQL : {e}")
+path : Project\Python\comparaisonmodels.pyimport threading, time, openai, Python.Utils as Utils
+
+class PNJ:
+    def __init__(self, name):
+        self.name = name
+        self.age = 0
+        self.lock = threading.Lock()
+        self.lifeSpeed = 1
+        self.totalToken = 0
+        
+        role = """Tu es un marchand dans un MMORPG se déroulant dans la Rome antique et où les dieux sont présents. 
+                  Prends le rôle de marchand à cœur, mais n'en fais pas trop non plus. Tes réponses doivent être courtes, 
+                  il faut juste que tu aies l'air assez vivant. """
+
+        # Historique unique, mais copié pour chaque modèle
+        self.HistoriqueConv = [{"role": "system", "content": role}]
+        
+        # Clé API depuis un fichier
+        self.API_KEY = open("secret", 'r', encoding="utf-8").read()
+        self.client = openai.OpenAI(api_key=self.API_KEY)
+        self.client2 = openai.OpenAI(api_key=self.API_KEY)
+
+    def incrementAge(self):
+        while True:
+            with self.lock:
+                self.age += self.lifeSpeed
+            time.sleep(1)
+
+    def printAge(self):
+        sec = self.age
+        y, sec = divmod(sec, 31536000)  # 1 an = 31 536 000 sec
+        m, sec = divmod(sec, 2592000)   # 1 mois = 2 592 000 sec 
+        d, sec = divmod(sec, 86400)     # 1 jour = 86 400 sec
+        h, sec = divmod(sec, 3600)      # 1 heure = 3 600 sec
+        min, sec = divmod(sec, 60)      # 1 minute = 60 sec
+        print(f"L'âge de {self.name} est de {y} années, {m} mois, {d} jours, {h} heures, {min} minutes, {sec} secondes")
+
+    def changeLifeSpeed(self, speed):
+        self.lifeSpeed = speed
+
+    def startLife(self):
+        life = threading.Thread(target=self.incrementAge, daemon=True)
+        life.start()
+
+    def chat_with_ai(self, user_input):
+        # Ajouter la question du joueur à l'historique
+        self.HistoriqueConv.append({"role": "user", "content": user_input})
+
+        # Copie de l'historique pour chaque modèle
+        messages1 = self.HistoriqueConv.copy()
+        messages2 = self.HistoriqueConv.copy()
+
+        # Temps de réponse pour GPT-3.5-Turbo
+        start_time1 = time.time()
+        response1 = self.client.chat.completions.create(
+            model="gpt-3.5-turbo",
+            messages=messages1,
+            temperature=0.7,
+            max_tokens=100
+        )
+        end_time1 = time.time()
+        time_gpt3 = end_time1 - start_time1  # Calcul du temps
+
+        # Temps de réponse pour GPT-4o-Mini
+        start_time2 = time.time()
+        response2 = self.client2.chat.completions.create(
+            model="gpt-4-turbo",
+            messages=messages2,
+            temperature=0.7,
+            max_tokens=100
+        )
+        end_time2 = time.time()
+        time_gpt4o = end_time2 - start_time2  # Calcul du temps
+
+        # Récupération des réponses
+        NPCResponse1 = response1.choices[0].message.content
+        NPCResponse2 = response2.choices[0].message.content
+
+        # Ajouter les réponses à l'historique
+        self.HistoriqueConv.append({"role": "assistant", "content": NPCResponse1})
+        self.HistoriqueConv.append({"role": "assistant", "content": NPCResponse2})
+
+        return NPCResponse1, NPCResponse2, time_gpt3, time_gpt4o
+
+    def talkTo(self):
+        while True:
+            user_message = input("Toi : ")
+            if user_message.lower() in ["quit", "exit", "stop"]:
+                print(f"\n🔹 Fin de la conversation. Total de tokens utilisés : {self.totalToken} tokens.")
+                break
+
+            response1, response2, time_gpt3, time_gpt4o = self.chat_with_ai(user_message)
+
+            # Affichage des réponses des deux modèles
+            print("\n💬 **Réponse GPT-3.5-Turbo :**")
+            print(f"🛒 {response1}\n")
+            print("💬 **Réponse GPT-4o-Mini :**")
+            print(f"🛍️ {response2}\n")
+
+            # Calcul des tokens
+            tokenAI1 = Utils.CalcToken(response1)
+            tokenAI2 = Utils.CalcToken(response2)
+            tokenU = Utils.CalcToken(user_message)
+
+            # Ajout au total
+            self.totalToken += tokenU + tokenAI1 + tokenAI2
+
+            # Affichage des temps de réponse distincts
+            print(f"⏳ Temps de réponse :")
+            print(f"   - GPT-3.5-Turbo : {time_gpt3:.2f} secondes")
+            print(f"   - GPT-4o-Mini   : {time_gpt4o:.2f} secondes")
+            
+            # Affichage des tokens
+            print(f"🔢 Tokens utilisés : {tokenU} (Utilisateur) + {tokenAI1} (GPT-3.5) + {tokenAI2} (GPT-4o) = {tokenU + tokenAI1 + tokenAI2} | Total : {self.totalToken}\n")
+path : Project\Python\PNJclass.pyimport threading, time, openai, Python.Utils as Utils
+
+natureList = []
+
+class PNJ:
+    def __init__(self, name:str, role:str):
+        self.name = name
+        self.age = 0
+        self.lock = threading.Lock()
+        self.lifeSpeed = 1
+        self.totalToken = 0
+        roleDesc = Utils.GetRole(role)
+        self.HistoriqueConv = [
+                                {"role": "system", "content": roleDesc}
+                              ]
+        self.API_KEY = open("secret",'r',encoding="utf-8").read()
+        self.client = openai.OpenAI(api_key=self.API_KEY)
+
+    def incrementAge(self):
+        while True:
+            with self.lock:
+                self.age += self.lifeSpeed
+            time.sleep(1)
+
+    def printAge(self):
+        sec = self.age
+        y, sec = divmod(sec, 31536000)  # 1 an = 31 536 000 sec
+        m, sec = divmod(sec, 2592000)   # 1 mois = 2 592 000 sec 
+        d, sec = divmod(sec, 86400)     # 1 jour = 86 400 sec
+        h, sec = divmod(sec, 3600)      # 1 heure = 3 600 sec
+        min, sec = divmod(sec, 60)      # 1 minute = 60 sec
+        print(f"l'age de {self.name} est de {y} années, {m} mois, {d} jours, {h} heures, {min} minutes, {sec} secondes")
+
+    def changeLifeSpeed(self,speed):
+        '''Voir tableau annexe'''
+        self.lifeSpeed = speed
+
+    def startLife(self):
+        life = threading.Thread(target=self.incrementAge, daemon=True)
+        life.start()
+
+    def chat_with_ai(self,user_input):
+        # Ajouter la question du joueur
+        self.HistoriqueConv.append({"role": "user", "content": user_input})
+        
+        # Envoyer tout l'historique à OpenAI
+        response = self.client.chat.completions.create(
+            model="gpt-4-turbo",
+            messages=self.HistoriqueConv,
+            temperature=0.7,  # proche de 0 : droit dans ses basquettes, proche de 1 : il va prendre des libertés sur la réponse, + que 1 : chaotique askip 
+            max_tokens=100
+        )
+
+        # c'est la réponse du NPC
+        NPCResponse = response.choices[0].message.content
+
+        # on ajoute la réponce sur NPC
+        self.HistoriqueConv.append({"role": "assistant", "content": NPCResponse})
+
+        return NPCResponse
+
+    def talkTo(self):
+        while True:
+            user_message = input("Toi : ")
+            if user_message.lower() in ["quit", "exit", "stop"]:
+                print("Fin de la conversation.")
+                break
+
+            start_time = time.time()
+            response = self.chat_with_ai(user_message)
+            end_time = time.time()
+
+            elapsed_time = end_time - start_time
+
+            print(f"IA : {response}")
+
+            tokenAI = Utils.CalcToken(response)
+            tokenU = Utils.CalcToken(user_message)
+
+            self.totalToken += tokenU+tokenAI
+            print(f"Temps de réponse : {elapsed_time}")
+            print(f"Tokens utilisés : {tokenAI} + {tokenU} = {tokenAI+tokenU} | pour un total de : {self.totalToken}")
+
+
+            path : Project\Python\PNJclasscreator.pyimport threading, time, openai, Python.Utils as Utils, os
+
+natureList = []
+
+class PNJ:
+    def __init__(self, name:str, role:str):
+        self.name = name
+        self.age = 0
+        self.lock = threading.Lock()
+        self.lifeSpeed = 1
+        self.totalToken = 0
+        roleDesc = Utils.GetRole(role)
+        self.HistoriqueConv = [
+                                {"role": "system", "content": roleDesc}
+                              ]
+        self.API_KEY = open("secret",'r',encoding="utf-8").read()
+        self.client = openai.OpenAI(api_key=self.API_KEY)
+        self.oldFileName = ""
+        self.newFileName = ""
+
+    def incrementAge(self):
+        while True:
+            with self.lock:
+                self.age += self.lifeSpeed
+            time.sleep(1)
+
+    def printAge(self):
+        sec = self.age
+        y, sec = divmod(sec, 31536000)  # 1 an = 31 536 000 sec
+        m, sec = divmod(sec, 2592000)   # 1 mois = 2 592 000 sec 
+        d, sec = divmod(sec, 86400)     # 1 jour = 86 400 sec
+        h, sec = divmod(sec, 3600)      # 1 heure = 3 600 sec
+        min, sec = divmod(sec, 60)      # 1 minute = 60 sec
+        print(f"l'age de {self.name} est de {y} années, {m} mois, {d} jours, {h} heures, {min} minutes, {sec} secondes")
+
+    def changeLifeSpeed(self,speed):
+        '''Voir tableau annexe'''
+        self.lifeSpeed = speed
+
+    def startLife(self):
+        life = threading.Thread(target=self.incrementAge, daemon=True)
+        life.start()
+
+    def chat_with_ai(self,user_input):
+        # Ajouter la question du joueur
+        self.HistoriqueConv.append({"role": "user", "content": user_input})
+        
+        # Envoyer tout l'historique à OpenAI
+        response = self.client.chat.completions.create(
+            model="gpt-4-turbo",
+            messages=self.HistoriqueConv,
+            temperature=0.7,  # proche de 0 : droit dans ses basquettes, proche de 1 : il va prendre des libertés sur la réponse, + que 1 : chaotique askip 
+            max_tokens=100
+        )
+
+        # c'est la réponse du NPC
+        NPCResponse = response.choices[0].message.content
+
+        # on ajoute la réponce sur NPC
+        self.HistoriqueConv.append({"role": "assistant", "content": NPCResponse})
+
+        return NPCResponse
+
+    def talkTo(self):
+        while True:
+            user_message = input("Toi : ")
+            
+            # Vérifie si l'utilisateur veut quitter
+            if user_message.lower() in ["quit", "exit", "stop"]:
+                print("Fin de la conversation.")
+                break
+            
+            # Vérifie si l'utilisateur veut recharger le programme
+            if user_message.lower() == "reload":
+                Utils.reload()
+
+            if user_message.lower().strip() != "":
+
+                start_time = time.time()
+                response = self.chat_with_ai(user_message)
+                end_time = time.time()
+
+                elapsed_time = end_time - start_time
+
+                print(f"IA : {response}")
+                self.createFile(response)
+
+                tokenAI = Utils.CalcToken(response)
+                tokenU = Utils.CalcToken(user_message)
+
+                self.totalToken += tokenU + tokenAI
+                print(f"Temps de réponse : {elapsed_time}")
+                print(f"Tokens utilisés : {tokenAI} + {tokenU} = {tokenAI+tokenU} | pour un total de : {self.totalToken}")
+
+
+    def createFile(self,jsonIA):
+        import json,os
+
+        a = json.loads(jsonIA)
+
+        with open(f"{a['filename']}",'w',encoding='utf-8') as dest:
+            dest.write(a["content"])
+        if a["exec"] == "True":os.system(f"python3.10.exe {a['filename']}")path : Project\Python\Utils.pyimport Python.PNJclass as PNJclass
+import Python.PNJclasscreator as PNJclasscreator
+
+def CreatePNJ(PNJs:dict,nom:str,role:str)->dict:
+    if role == "generator":
+        _ = PNJclasscreator.PNJ(nom,role)
+    else:
+        _ = PNJclass.PNJ(nom,role)
+    _.startLife()
+    _.changeLifeSpeed(10000000)
+    PNJs[nom] = _
+    return PNJs
+
+def printPNJ(PNJs:dict)->None:
+    for values in PNJs.values():
+        values.printAge()
+
+def clear():
+    import os
+    os.system('cls')
+
+def CalcToken(text:str)->int:
+    import tiktoken
+    return len(tiktoken.encoding_for_model("gpt-4o-mini").encode(text))
+
+def GetRole(role):
+    import ast 
+    return ast.literal_eval(open(f"data/roles/{role}.dat", "r", encoding="utf-8").read())
+
+def reload():
+    import time,os
+    os.system("cls")
+    print("🔄 Redémarrage en cours... Ne touchez à rien !")
+    time.sleep(1)
+    os.system("cls")
+    os.execv("launcher.bat", ["launcher.bat"])path : Project\test\test.json{
+    "filename": "print_hello.py",
+    "content": "for _ in range(10):\n    print('Hello, World!')"
+}
+path : Project\test\test.pyimport json,os
+a = json.loads(open('test.json','r',encoding='utf-8').read())
+
+with open(a["filename"],'w',encoding='utf-8') as dest:
+    dest.write(a["content"])
+
+os.system(f"python3.10.exe {a['filename']}")
+

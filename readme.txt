@@ -1,0 +1,1 @@
+pour les roles tu peux aller dans data/roles pour le détails des prompts originaux

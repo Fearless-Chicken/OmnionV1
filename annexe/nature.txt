@@ -1,0 +1,13 @@
+Berserker
+Prudent
+Leader
+Suiveur
+Explorateur
+Sociable
+Loup Solitaire
+Provocateur
+Calculateur
+Protecteur
+Téméraire
+Pacifiste
+

@@ -1,0 +1,4 @@
+{
+    "filename": "print_hello.py",
+    "content": "for _ in range(10):\n    print('Hello, World!')"
+}
