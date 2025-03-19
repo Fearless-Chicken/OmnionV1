@@ -1,4 +1,4 @@
-import threading, time, openai, Python.Utils as Utils
+import threading, time, openai, Utils
 
 natureList = []
 

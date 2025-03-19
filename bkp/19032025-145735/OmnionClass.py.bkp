@@ -42,13 +42,13 @@ class Omnion:
         life = threading.Thread(target=self.incrementAge, daemon=True)
         life.start()
 
-    def chat_with_ai(self,user_input):
+    def chat_with_ai(self,user_input,model:str):
         # Ajouter la question du joueur
         self.HistoriqueConv.append({"role": "user", "content": user_input})
         
         # Envoyer tout l'historique à OpenAI
         response = self.client.chat.completions.create(
-            model="gpt-4-turbo",
+            model=model,
             messages=self.HistoriqueConv,
             temperature=0.7,  # proche de 0 : droit dans ses basquettes, proche de 1 : il va prendre des libertés sur la réponse, + que 1 : chaotique askip 
             max_tokens=100
@@ -64,7 +64,7 @@ class Omnion:
 
     def talkTo(self):
         os.system("cls")
-        print(self.chat_with_ai("bvn"))
+        print(self.chat_with_ai("bvn","gpt-4-turbo"))
         while True:
             user_message = input("> ")
             
@@ -80,7 +80,7 @@ class Omnion:
             if user_message.lower().strip() != "":
                 
                 start_time = time.time()
-                response = self.chat_with_ai(user_message)
+                response = self.chat_with_ai(user_message,"gpt-4-turbo")
                 end_time = time.time()
 
                 elapsed_time = end_time - start_time
@@ -90,7 +90,7 @@ class Omnion:
                 except json.decoder.JSONDecodeError:
                     jsonIA = response
                     if self.debug:print("not loaded")
-                # input(jsonIA)
+                input(jsonIA)
                 match jsonIA["func"]:
                     case "NormalTalk":
                         print(f"\n{self.name} : {jsonIA['content']}\n")
@@ -103,9 +103,18 @@ class Omnion:
                     case "executeCode":
                         # input(jsonIA["content"])
                         result = OmnionUtils.execCode(jsonIA["content"])
-                        reponse = self.chat_with_ai("la réponse est : "+result+"\nrédige moi une réponse pertinente")
+                        reponse = self.chat_with_ai("la réponse est : "+result+"\nrédige moi une réponse pertinente","gpt-4-turbo")
                         print(reponse)
 
+
+                    case "ToggleDebug":
+                        self.debug = jsonIA["content"]
+                        
+
+                    case "changeOwnCode":
+                        self.modifieOwnCode(jsonIA["content"],user_message)
+
+                        
                     case other:
                         print(f"{self.name} : {jsonIA}")
 
@@ -125,3 +134,11 @@ class Omnion:
             dest.write(jsonIA["content"])
         if jsonIA["exec"] == "True":os.system(f"python3.10.exe {jsonIA['filename']}")
 
+
+    def modifieOwnCode(self,content:str,originalUserPrompt):   
+        OwnContent = open("Python/OmnionClass.py","r",encoding="utf-8").read()
+        OmnionUtils.bkpFile("Python/OmnionClass.py",originalUserPrompt)
+        prompt = "Tu est passer en mode changeOwnCode, le contenu de ton fichier sera cité ci dessous et le prompt (ce qu'il faut changer dans le fichier) que tu as générer toi même est : "+content+"\n\n\ncontenu du fichier :\n"+OwnContent+"tu rendras donc un json du code COMPLET et MODIFIER et le 'comm' sera les changements effectués"
+        response = self.chat_with_ai(prompt,"gpt-4o-mini")
+        input(response)
+        self.createFile(response)

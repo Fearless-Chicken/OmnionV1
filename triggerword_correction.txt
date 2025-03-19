@@ -1,1 +1,0 @@
-Le triggerword incorrect 'relaod' semble être une faute de frappe pour 'reload'. L'interprétation correcte aurait dû être 'reload' pour recharger le code source.

@@ -12,4 +12,5 @@ def GetEveryFilesContent():
                     res += open(relative_path,"r",encoding="utf-8").read()
         dest.write(res)
 
-GetEveryFilesContent()
+
+
