@@ -23,11 +23,14 @@ def reload():
     print("🔄 Redémarrage en cours... Ne touchez à rien !")
     time.sleep(1)
     os.system("cls")  # Clear the screen again
-    
-    # Obtenir le chemin absolu relatif au dossier courant
-    current_dir = os.path.dirname(os.path.abspath(__file__))  # Obtient le chemin du dossier du script
-    bat_file = os.path.join(current_dir, "Python", "Omnion", "Omnion.bat")  # Chemin relatif vers le .bat
-    
-    # Vérifie si le fichier existe
+    print("\n")
 
-    subprocess.run([bat_file], shell=True)
+    bat_path = os.path.join(os.path.dirname(__file__), "../Omnion.bat")
+    
+    # Vérifie si le fichier .bat existe
+    if not os.path.isfile(bat_path):
+        print(f"Le fichier {bat_path} est introuvable")
+        return
+
+    # Exécuter le fichier .bat
+    subprocess.run([bat_path], shell=True)

@@ -4,7 +4,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 import threading, time, pick, PNJclass as PNJclass, Utils as Utils, ast, traceback, OmnionUtils
 
-os.chdir("../..")
+# os.chdir("../..")
 
 global tempsEcoulé
 tempsEcoulé = 0

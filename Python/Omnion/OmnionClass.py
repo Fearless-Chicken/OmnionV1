@@ -83,42 +83,42 @@ class Omnion:
         while True:
             ## On récupère la commande du GM
             userPrompt = input("> ")
-            
-            # Vérifie si l'utilisateur veut quitter
-            if userPrompt.lower() in ["quit", "exit", "stop"]:
-                print("Fin de la conversation.")
-                break
-            
-            # Vérifie si l'utilisateur veut recharger le programme
-            if userPrompt.lower() == "reload":
-                Utils.reload()
 
             if userPrompt.lower().strip() != "":
+                # Vérifie si l'utilisateur veut quitter
+                if userPrompt.lower() in ["quit", "exit", "stop"]:
+                    print("Fin de la conversation.")
+                    break
                 
-                ## Calcul du temps de réponse + récupération de la réponse d'Omnion
-                start_time = time.time()
-                jsonIA = self.chat_with_ai(userPrompt,"gpt-4-turbo")
-                end_time = time.time()
-                elapsed_time = end_time - start_time
+                # Vérifie si l'utilisateur veut recharger le programme
+                elif userPrompt.lower() == "reload":
+                    Utils.reload()
 
-                
-                
-                ## Réponse de l'IA
-                print("Le json rendu par l'IA")
-                input(jsonIA)
+                else:
+                    ## Calcul du temps de réponse + récupération de la réponse d'Omnion
+                    start_time = time.time()
+                    jsonIA = self.chat_with_ai(userPrompt,"gpt-4-turbo")
+                    end_time = time.time()
+                    elapsed_time = end_time - start_time
 
-                ## Fonction qui se charge d'interpretter la réponse
-                self.printResponse(jsonIA,userPrompt)
-                
-                ## Calcul des tokens utilisés
-                tokenAI = Utils.CalcToken(jsonIA)
-                tokenU = Utils.CalcToken(userPrompt)
-                self.totalToken += tokenU + tokenAI
+                    
+                    
+                    ## Réponse de l'IA
+                    print("Le json rendu par l'IA")
+                    input(jsonIA)
 
-                ## Print des tokens utilisés et du temps de réponse 
-                if self.debug:
-                    print(f"Temps de réponse : {elapsed_time}")
-                    print(f"Tokens utilisés : {tokenAI} + {tokenU} = {tokenAI+tokenU} | pour un total de : {self.totalToken}")
+                    ## Fonction qui se charge d'interpretter la réponse
+                    self.printResponse(jsonIA,userPrompt)
+                    
+                    ## Calcul des tokens utilisés
+                    tokenAI = Utils.CalcToken(jsonIA)
+                    tokenU = Utils.CalcToken(userPrompt)
+                    self.totalToken += tokenU + tokenAI
+
+                    ## Print des tokens utilisés et du temps de réponse 
+                    if self.debug:
+                        print(f"Temps de réponse : {elapsed_time}")
+                        print(f"Tokens utilisés : {tokenAI} + {tokenU} = {tokenAI+tokenU} | pour un total de : {self.totalToken}")
 
 
     def createFile(self,jsonIA):
