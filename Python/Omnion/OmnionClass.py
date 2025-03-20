@@ -21,7 +21,7 @@ class Omnion:
         self.client = openai.OpenAI(api_key=self.API_KEY)
         self.oldFileName = ""
         self.newFileName = ""
-        self.debug = True
+        self.debug = False
 
     def incrementAge(self):
         while True:
@@ -74,6 +74,11 @@ class Omnion:
 
         return NPCResponse
 
+    def Boot(self):
+        import OmnionBoot 
+        if self.debug:OmnionBoot.Boot()
+        self.talkTo()
+    
     def talkTo(self):
         os.system("cls")
 
@@ -100,20 +105,27 @@ class Omnion:
                     jsonIA = self.chat_with_ai(userPrompt,"gpt-4-turbo")
                     end_time = time.time()
                     elapsed_time = end_time - start_time
+                    
+                    ## Log
+                    import logger, json
+                    log = "\nUser said : " + userPrompt + "\nOmnion said :\n" + str(json.dumps(jsonIA, indent=4))
+                    logger.log_message(
+                        log
+                    )
 
-                    
-                    
                     ## Réponse de l'IA
-                    print("Le json rendu par l'IA")
-                    input(jsonIA)
+                    if self.debug:
+                        print("Le json rendu par l'IA")
+                        input(jsonIA)
 
                     ## Fonction qui se charge d'interpretter la réponse
                     self.printResponse(jsonIA,userPrompt)
                     
                     ## Calcul des tokens utilisés
-                    tokenAI = Utils.CalcToken(jsonIA)
-                    tokenU = Utils.CalcToken(userPrompt)
-                    self.totalToken += tokenU + tokenAI
+                    if self.debug:
+                        tokenAI = Utils.CalcToken(jsonIA)
+                        tokenU = Utils.CalcToken(userPrompt)
+                        self.totalToken += tokenU + tokenAI
 
                     ## Print des tokens utilisés et du temps de réponse 
                     if self.debug:
@@ -139,6 +151,11 @@ class Omnion:
     def printResponse(self,jsonIA,userPrompt):
         match jsonIA["func"]:
             case "NormalTalk":
+                # res = f"\n{self.name} : "
+                # for chara in jsonIA['content']:
+                #     os.system("cls")
+                #     res += chara
+                #     print(res)
                 print(f"\n{self.name} : {jsonIA['content']}\n")
 
 

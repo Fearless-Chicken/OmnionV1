@@ -2,13 +2,12 @@ import sys, os
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-import  time, pick, PNJclass as PNJclass, Utils as Utils, ast, traceback, OmnionUtils
+import  time, pick, PNJclass as PNJclass, Utils as Utils, ast, traceback, OmnionUtils, OmnionBoot
 
 if __name__ == '__main__':
     try:
-        PNJs = {}
-        PNJs = OmnionUtils.CreatePNJ(PNJs,"Omnion","Omnion")
-        PNJs["Omnion"].talkTo()
+        Omnion = OmnionUtils.CreatePNJ({},"Omnion","Omnion")["Omnion"]
+        Omnion.Boot()
     except Exception as e:
         while True:
             choix,_ = pick.pick(["Tentative de reload","Voir l'erreur","Quitter"],"Erreure detectée...",indicator=">")
